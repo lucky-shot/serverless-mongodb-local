@@ -1,4 +1,4 @@
-const { MongoMemoryServer } = require('mongodb-memory-server-core');
+const { MongoMemoryReplSet } = require('mongodb-memory-server-core');
 const seed = require('./seed');
 
 class ServerlessMongoDBLocal {
@@ -52,7 +52,7 @@ class ServerlessMongoDBLocal {
     if (this.shouldExecute()) {
       this.log('Starting local database');
       const { stages, ...mmsOptions } = this.config;
-      this.mongod = new MongoMemoryServer(mmsOptions);
+      this.mongod = new MongoMemoryReplSet(mmsOptions);
       await this.mongod.start();
       const mongoUri = this.mongod.getUri();
       if (!mongoUri) {
